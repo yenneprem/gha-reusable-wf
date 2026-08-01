@@ -1,8 +1,14 @@
-name: reuable wf
+name: reusable wf
 on: workflow_call
+     inputs:
+       name:
+         description: 'Name to greet'
+         required: true
+         default: 'World'
 jobs:
    greeting:
      runs-on: ubuntu-latest
      steps:
         - name: greeting
-          run: echo "Hello from reuable"
+          runs: echo "Hello ${{ inputs.name }} from reusable"
+# Hello
