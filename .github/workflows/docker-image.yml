@@ -1,0 +1,17 @@
+name: Docker Image CI
+
+on:
+  push:
+    branches:
+      - main
+jobs:
+
+  app-py-ci:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: checkout code
+      uses: actions/checkout@v4
+    - name: Build the Docker image
+      run: docker build . --file Dockerfile --tag pyenne/gha-app-py:$GITHUB_SHA-$(date +%s) 
