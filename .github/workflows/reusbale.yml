@@ -6,6 +6,7 @@ on:
          description: 'Name to greet'
          required: true
          default: 'World'
+         type: string
 jobs:
    greeting:
      runs-on: ubuntu-latest
