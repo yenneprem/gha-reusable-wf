@@ -1,5 +1,6 @@
 name: reusable wf
-on: workflow_call
+on: 
+  workflow_call:
      inputs:
        name:
          description: 'Name to greet'
