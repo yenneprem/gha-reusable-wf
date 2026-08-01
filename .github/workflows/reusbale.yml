@@ -1,0 +1,8 @@
+name: reuable wf
+on: workflow-call
+jobs:
+   greeting:
+     runs-on: ubuntu-latest
+     steps:
+        - name: greeting
+          runs: echo "Hello from reuable"
