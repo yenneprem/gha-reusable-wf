@@ -4,6 +4,8 @@ on:
   push:
     branches:
       - main
+permissions:
+  contents: write
 jobs:
 
   app-py-ci:
@@ -28,4 +30,10 @@ jobs:
     - name: Update Deployment Manifest
       run: |
         sed -i "s/IMAGE_TAG/${IMAGE_TAG}/g" k8s/Dep.yml
-          
+    - name: git commit and push
+      run: |
+        git config --global user.name "GitHub Actions"
+        git config --global user.email "github-actions@github.com"
+        git add k8s/Dep.yml
+        git commit -m "Update deployment manifest with new image tag"
+        git push origin main
