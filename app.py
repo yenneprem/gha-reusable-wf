@@ -1,5 +1,7 @@
 from flask import Flask
+import subprocess
 
+subprocess.call("echo test", shell=True)
 app = Flask(__name__)
 
 @app.route('/')
