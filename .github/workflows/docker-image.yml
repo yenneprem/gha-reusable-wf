@@ -25,5 +25,7 @@ jobs:
         password: "${{ secrets.DOCKER_HUB_TOKEN }}"
     - name: Docker push
       run: docker push pyenne/gha-app-py:${IMAGE_TAG}
-      
-      
+    - name: Update Deployment Manifest
+      run: |
+        sed -i "s/IMAGE_TAG/${IMAGE_TAG}/g" k8s/deployment.yaml
+          
