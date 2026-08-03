@@ -16,6 +16,6 @@ spec:
     spec:
       containers:
       - name: my-app
-        image: pyenne/gha-app-py:${IMAGE_TAG}
+        image: pyenne/gha-app-py:${590a3d5-2026-08-03}
         ports:
         - containerPort: 80
