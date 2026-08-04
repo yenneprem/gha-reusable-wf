@@ -113,6 +113,14 @@ jobs:
       # use of linux runner
       # run: |
       #   sed -i "s|image:.*|image: pyenne/gha-app-py:${IMAGE_TAG}|g" k8s/Dep.yml
+    - name: Manual Approval
+      uses: trstringer/manual-approval@v1
+      with:
+        secret: ${{ secrets.GITHUB_TOKEN }}
+        approvers: premyenne
+        minimum-approvals: 1
+        issue-title: "Approve Production Deployment"
+        issue-body: "Please approve deployment to Production."
     - name: git commit and push
       run: |
         git config --global user.name "GitHub Actions"
