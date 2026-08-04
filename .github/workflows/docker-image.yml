@@ -79,7 +79,7 @@ jobs:
       #       docker build . --file Dockerfile --tag pyenne/gha-app-py:$IMAGE_TAG
     - name: Scan image with Trivy
       #shell: powershell
-      uses: aquasecurity/trivy-action@0.28.0
+      uses: aquasecurity/trivy-action@0.36.0
       with:
         image-ref: pyenne/gha-app-py:${{ env.IMAGE_TAG }}
         format: table
