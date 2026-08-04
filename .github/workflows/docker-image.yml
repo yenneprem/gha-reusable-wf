@@ -90,7 +90,7 @@ jobs:
     - name: Scan Docker Image
       shell: powershell
       run: |
-        trivy image `
+         & "C:\Users\yenne\AppData\Local\Microsoft\WinGet\Packages\AquaSecurity.Trivy_Microsoft.Winget.Source_8wekyb3d8bbwe\trivy.exe" image `
          --severity HIGH,CRITICAL `
          --exit-code 1 `
          --ignore-unfixed `
