@@ -77,17 +77,24 @@ jobs:
       #       IMAGE_TAG=${GITHUB_SHA::7}-$(date +%F)
       #       echo "IMAGE_TAG=$IMAGE_TAG" >> $GITHUB_ENV
       #       docker build . --file Dockerfile --tag pyenne/gha-app-py:$IMAGE_TAG
-    - name: Scan image with Trivy
-      #shell: powershell
-      uses: aquasecurity/trivy-action@v0.36.0
+    # - name: Scan image with Trivy (use for linux runner)
+    #   #shell: powershell
+    #   uses: aquasecurity/trivy-action@v0.36.0
+    #   with:
+    #     image-ref: pyenne/gha-app-py:${{ env.IMAGE_TAG }}
+    #     format: table
+    #     exit-code: 1
+    #     ignore-unfixed: true
+    #     vuln-type: 'os,library'
+    #     severity: CRITICAL,HIGH
+    - name: Scan Docker Image
       shell: powershell
-      with:
-        image-ref: pyenne/gha-app-py:${{ env.IMAGE_TAG }}
-        format: table
-        exit-code: 1
-        ignore-unfixed: true
-        vuln-type: 'os,library'
-        severity: CRITICAL,HIGH
+      run: |
+        trivy image `
+         --severity HIGH,CRITICAL `
+         --exit-code 1 `
+         --ignore-unfixed `
+         pyenne/gha-app-py:${{ env.IMAGE_TAG }}
     - name: Docker login
       uses: docker/login-action@v3
       with:
