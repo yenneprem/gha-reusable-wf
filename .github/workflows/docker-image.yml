@@ -67,10 +67,16 @@ jobs:
 
           Write-Host "Quality Gate Passed."
     - name: Build the Docker image
+      shell: powershell
       run: |
-            IMAGE_TAG=${GITHUB_SHA::7}-$(date +%F)
-            echo "IMAGE_TAG=$IMAGE_TAG" >> $GITHUB_ENV
-            docker build . --file Dockerfile --tag pyenne/gha-app-py:$IMAGE_TAG
+          $IMAGE_TAG = "${env:GITHUB_SHA}".Substring(0,7) + "-" + (Get-Date -Format "yyyy-MM-dd")
+          echo "IMAGE_TAG=$IMAGE_TAG" >> $env:GITHUB_ENV
+          docker build . --file Dockerfile --tag pyenne/gha-app-py:$IMAGE_TAG
+      # use below when runner is linux 
+      # run: |
+      #       IMAGE_TAG=${GITHUB_SHA::7}-$(date +%F)
+      #       echo "IMAGE_TAG=$IMAGE_TAG" >> $GITHUB_ENV
+      #       docker build . --file Dockerfile --tag pyenne/gha-app-py:$IMAGE_TAG
     - name: Docker login
       uses: docker/login-action@v3
       with:
