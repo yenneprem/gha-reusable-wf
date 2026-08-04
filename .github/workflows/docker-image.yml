@@ -85,8 +85,12 @@ jobs:
     - name: Docker push
       run: docker push pyenne/gha-app-py:${IMAGE_TAG}
     - name: Update Deployment Manifest
+      shell: powershell
       run: |
-        sed -i "s|image:.*|image: pyenne/gha-app-py:${IMAGE_TAG}|g" k8s/Dep.yml
+        (Get-Content k8s/Dep.yml) -replace 'image:.*', "image: pyenne/gha-app-py:${env:IMAGE_TAG}" | Set-Content k8s/Dep.yml
+      # use of linux runner
+      # run: |
+      #   sed -i "s|image:.*|image: pyenne/gha-app-py:${IMAGE_TAG}|g" k8s/Dep.yml
     - name: git commit and push
       run: |
         git config --global user.name "GitHub Actions"
